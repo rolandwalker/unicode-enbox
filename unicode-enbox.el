@@ -300,6 +300,7 @@ value to match BOX-TYPE."
                     str-list))
           (propertize (mapconcat 'identity str-list "\n") 'unicode-enbox-default-type box-type)))))
 
+;;;###autoload
 (defun unicode-enbox-debox (str-val &optional force box-type)
   "Remove box drawing from the border of STR-VAL.
 
