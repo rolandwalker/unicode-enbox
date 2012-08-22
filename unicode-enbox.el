@@ -219,11 +219,11 @@ Unless optional FORCE is set, do not attempt to debox unless
 `unicode-enbox' was previously run on STR-VAL.  This is detected
 by means of the text property `unicode-enbox-default-type'.
 
-Optional BOX-TYPE overrides the `unicode-enbox-default-type' customizable
-variable, which defaults to \"Standard\".
+Optional BOX-TYPE overrides the `unicode-enbox-default-type'
+customizable variable, which defaults to \"Standard\".
 
-The text property `unicode-enbox-default-type' will be set on the return
-value to match BOX-TYPE."
+The text property `unicode-enbox-default-type' will be set on the
+return value to match BOX-TYPE."
   (if (or (and (get-text-property 0 'unicode-enbox-default-type str-val)
                (not force))
           (and unicode-only
@@ -231,10 +231,12 @@ value to match BOX-TYPE."
       str-val
     ;; else
     (callf or box-type unicode-enbox-default-type)
-    (callf or side-mode 'smart)
     (unless (unicode-enbox-unicode-display-p)
       (setq box-type "ASCII"))
+    (callf or side-mode 'smart)
+    (callf or top-mode 'smart)
     (assert (memq side-mode '(smart append overwrite)) nil "Bad SIDE-MODE value %s" side-mode)
+    (assert (memq top-mode  '(smart append overwrite)) nil "Bad TOP-MODE value %s"  top-mode)
     (destructuring-bind (top-left-corner
                          top-right-corner
                          bottom-left-corner
@@ -254,41 +256,57 @@ value to match BOX-TYPE."
                                              (substring str (1- (length str)) (length str))) str-list ""))
                (string-top    (copy-seq (car str-list)))
                (string-bottom (copy-seq (car (last str-list)))))
+
+          ;; left
           (if (or (eq side-mode 'append)
                   (< (length string-top) 2)
-                  (and (not (eq side-mode 'overwrite))
+                  (and (eq side-mode 'smart)
                        (string-utils-has-darkspace-p string-starts)))
+              ;; then prepend left side
               (callf2 mapcar #'(lambda (str)
-                                 (concat `[,vertical-line] str)) str-list)
-            ;; else
+                                 (concat (vector vertical-line) str)) str-list)
+            ;; else overwrite left side
             (callf2 mapcar #'(lambda (str)
                                (setf (aref str 0) vertical-line) str) str-list))
+
+          ;; right
           (if (or (eq side-mode 'append)
                   (< (length string-top) 2)
-                  (and (not (eq side-mode 'overwrite))
+                  (and (eq side-mode 'smart)
                        (string-utils-has-darkspace-p string-ends)))
+              ;; then append right side
               (callf2 mapcar #'(lambda (str)
-                                 (concat str `[,vertical-line])) str-list)
-            ;; else
+                                 (concat str (vector vertical-line))) str-list)
+            ;; else overwrite right side
             (callf2 mapcar #'(lambda (str)
                                (setf (aref str (1- (length str))) vertical-line) str) str-list))
-          (let ((top-assembly     (concat `[,top-left-corner]          (make-vector (- (length (car str-list)) 2) horizontal-line) `[,top-right-corner]))
-                (bottom-assembly  (concat `[,bottom-left-corner]       (make-vector (- (length (car str-list)) 2) horizontal-line) `[,bottom-right-corner]))
-                (divider-assembly (concat `[,vertical-line-right-conx] (make-vector (- (length (car str-list)) 2) horizontal-line) `[,vertical-line-left-conx])))
+
+          ;; delay measuring width until left and right are done
+          (let ((top-assembly     (concat (vector top-left-corner)          (make-vector (- (length (car str-list)) 2) horizontal-line) (vector top-right-corner)))
+                (bottom-assembly  (concat (vector bottom-left-corner)       (make-vector (- (length (car str-list)) 2) horizontal-line) (vector bottom-right-corner)))
+                (divider-assembly (concat (vector vertical-line-right-conx) (make-vector (- (length (car str-list)) 2) horizontal-line) (vector vertical-line-left-conx))))
+
+            ;; top
             (if (or (eq top-mode 'append)
                     (< (length str-list) 2)
-                    (and (not (eq top-mode 'overwrite))
+                    (and (eq top-mode 'smart)
                          (string-utils-has-darkspace-p string-top)))
+                ;; then prepend top side
                 (push top-assembly str-list)
-              ;; else
+              ;; else overwrite top side
               (setf (car str-list) top-assembly))
+
+            ;; bottom
             (if (or (eq top-mode 'append)
                     (< (length str-list) 2)
-                    (and (not (eq top-mode 'overwrite))
+                    (and (eq top-mode 'smart)
                          (string-utils-has-darkspace-p string-bottom)))
+                ;; then append bottom side
                 (callf append str-list (list bottom-assembly))
-              ;; else
+              ;; else overwrite bottom side
               (setf (car (last str-list)) bottom-assembly))
+
+            ;; horizontal dividers
             (callf2 mapcar #'(lambda (str)
                                (if (string-match-p (concat "\\`"
                                                            (regexp-quote (string vertical-line))
@@ -298,6 +316,8 @@ value to match BOX-TYPE."
                                    divider-assembly
                                  str))
                     str-list))
+
+          ;; glue together and propertize the return value
           (propertize (mapconcat 'identity str-list "\n") 'unicode-enbox-default-type box-type)))))
 
 ;;;###autoload
