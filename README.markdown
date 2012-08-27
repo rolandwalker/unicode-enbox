@@ -29,3 +29,9 @@ following bit to your ~/.emacs file:
 	(set-fontset-font "fontset-default"
 	                  (cons (decode-char 'ucs #x2500)  (decode-char 'ucs #x257F))
 	                  '("DejaVu Sans Mono" . "iso10646-1"))
+
+Compatibility and Requirements
+------------------------------
+Tested only on GNU Emacs version 24.1
+
+Requires string-utils.el, ucs-utils.el

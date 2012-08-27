@@ -45,9 +45,11 @@
 ;;                      '("DejaVu Sans Mono" . "iso10646-1"))
 ;;
 ;;
-;; Compatibility
+;; Compatibility and Requirements
 ;;
 ;;    Tested only on GNU Emacs version 24.1
+;;
+;;    Requires string-utils.el, ucs-utils.el
 ;;
 ;; Bugs
 ;;
