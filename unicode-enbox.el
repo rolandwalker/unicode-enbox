@@ -192,6 +192,7 @@
 
 ;;; utility functions
 
+;;;###autoload
 (defun unicode-enbox-unicode-display-p ()
   "Return t if the current display supports unicode box characters."
   (ucs-utils-char "Box Drawings Light Down and Right" nil 'cdp))
