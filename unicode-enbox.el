@@ -185,8 +185,8 @@
 
 (defcustom unicode-enbox-default-type "Standard"
   "Default box drawing characters to use for `unicode-enbox'."
-  :type `(choice ,@(mapcar '(lambda (x)
-                              (list 'const (car x)))
+  :type `(choice ,@(mapcar #'(lambda (x)
+                               (list 'const (car x)))
                            unicode-enbox-box-drawing-characters))
   :group 'unicode-enbox)
 
