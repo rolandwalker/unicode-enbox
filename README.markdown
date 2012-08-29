@@ -34,4 +34,4 @@ Compatibility and Requirements
 ------------------------------
 Tested only on GNU Emacs version 24.1
 
-Requires string-utils.el, ucs-utils.el
+Requires [string-utils.el](http://github.com/rolandwalker/string-utils), [ucs-utils.el](http://github.com/rolandwalker/ucs-utils)
