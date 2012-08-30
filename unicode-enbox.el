@@ -3,7 +3,8 @@
 ;; Copyright (c) 2012 Roland Walker
 ;;
 ;; Author: Roland Walker walker@pobox.com
-;; URL: https://github.com/rolandwalker/unicode-enbox.el
+;; Homepage: http://github.com/rolandwalker/unicode-enbox
+;; URL: http://raw.github.com/rolandwalker/unicode-enbox/master/unicode-enbox.el
 ;; Version: 0.1.2
 ;; Last-Updated: 27 Aug 2012
 ;; EmacsWiki: UnicodeEnbox
