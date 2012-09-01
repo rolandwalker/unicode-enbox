@@ -2,7 +2,7 @@
 ;;
 ;; Copyright (c) 2012 Roland Walker
 ;;
-;; Author: Roland Walker walker@pobox.com
+;; Author: Roland Walker <walker@pobox.com>
 ;; Homepage: http://github.com/rolandwalker/unicode-enbox
 ;; URL: http://raw.github.com/rolandwalker/unicode-enbox/master/unicode-enbox.el
 ;; Version: 0.1.2
