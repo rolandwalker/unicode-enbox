@@ -32,7 +32,7 @@ following bit to your ~/.emacs file:
 
 Compatibility and Requirements
 ------------------------------
-Tested only on GNU Emacs version 24.1
+Tested on GNU Emacs versions 23.3 and 24.1
 
 Requires [string-utils.el](http://github.com/rolandwalker/string-utils), [ucs-utils.el](http://github.com/rolandwalker/ucs-utils)
 
