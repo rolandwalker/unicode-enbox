@@ -1,9 +1,18 @@
 Overview
 ========
+
 Surround a string with box-drawing characters in Emacs.
+
+Quickstart
+----------
+
+	(require 'unicode-enbox)
+
+	(insert "\n" (unicode-enbox "testing"))
 
 unicode-enbox
 -------------
+
 Unicode-enbox.el has no user-level interface; it is only useful
 for programming in Emacs Lisp.
 
@@ -17,10 +26,12 @@ a single- or multi-line string.
 
 See Also
 --------
+
 M-x customize-group RET unicode-enbox RET
 
 Notes
 -----
+
 For good monospaced box-drawing characters, it is recommended to
 install the free DejaVu Sans Mono font and use unicode-fonts.el.
 If unicode-fonts.el is too heavy for your needs, try adding the
@@ -32,6 +43,7 @@ following bit to your ~/.emacs file:
 
 Compatibility and Requirements
 ------------------------------
+
 Tested on GNU Emacs versions 23.3 and 24.1
 
 Requires [string-utils.el](http://github.com/rolandwalker/string-utils), [ucs-utils.el](http://github.com/rolandwalker/ucs-utils)

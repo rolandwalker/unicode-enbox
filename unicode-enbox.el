@@ -15,13 +15,21 @@
 ;;
 ;;; Commentary:
 ;;
+;; Quickstart
+;;
+;;     (require 'unicode-enbox)
+;;
+;;     (insert "\n" (unicode-enbox "testing"))
+;;
+;; Explanation
+;;
 ;; Unicode-enbox.el has no user-level interface; it is only useful
 ;; for programming in Emacs Lisp.
 ;;
 ;; This library provides two functions:
 ;;
-;;    unicode-enbox
-;;    unicode-enbox-debox
+;;     unicode-enbox
+;;     unicode-enbox-debox
 ;;
 ;; which can be used to add/remove box-drawing characters around
 ;; a single- or multi-line string.
@@ -29,11 +37,11 @@
 ;; To use unicode-enbox, place the unicode-enbox.el library somewhere
 ;; Emacs can find it, and add the following to your ~/.emacs file:
 ;;
-;;    (require 'unicode-enbox)
+;;     (require 'unicode-enbox)
 ;;
 ;; See Also
 ;;
-;;    M-x customize-group RET unicode-enbox RET
+;;     M-x customize-group RET unicode-enbox RET
 ;;
 ;; Notes
 ;;
@@ -42,31 +50,35 @@
 ;; If unicode-fonts.el is too heavy for your needs, try adding the
 ;; following bit to your ~/.emacs file:
 ;;
-;;    (set-fontset-font "fontset-default"
-;;                      (cons (decode-char 'ucs #x2500)  (decode-char 'ucs #x257F))
-;;                      '("DejaVu Sans Mono" . "iso10646-1"))
+;;     (set-fontset-font "fontset-default"
+;;                       (cons (decode-char 'ucs #x2500)  (decode-char 'ucs #x257F))
+;;                       '("DejaVu Sans Mono" . "iso10646-1"))
 ;;
 ;;
 ;; Compatibility and Requirements
 ;;
-;;    Tested on GNU Emacs versions 23.3 and 24.1
+;;     Tested on GNU Emacs versions 23.3 and 24.1
 ;;
-;;    Requires string-utils.el, ucs-utils.el
+;;     Requires string-utils.el, ucs-utils.el
 ;;
 ;; Bugs
 ;;
 ;; TODO
 ;;
-;;    interactive command that works on rectangles
+;;     Interactive command that works on rectangles.
 ;;
-;;    logic in unicode-enbox is not clear, eg where it falls through to 'smart
+;;     Logic in unicode-enbox is not clear, eg where it falls through
+;;     to 'smart.
 ;;
-;;    detect lines of full dashes, replace with box chars and connectors
-;;       - then would need more clever deboxing - or just store the original string in a property
+;;     Detect lines of full dashes, replace with box chars and
+;;     connectors, then would need more clever deboxing - or just
+;;     store the original string in a property - done?
 ;;
-;;    detect acutalwidth of unicode characters in GUI - char-width does not return the right answer
+;;     Detect acutal width of unicode characters in GUI - char-width
+;;     does not return the right answer.
 ;;
-;;    generalize to comment boxes with multi-character drawing elements
+;;     Generalize to comment boxes with multi-character drawing
+;;     elements.
 ;;
 ;;; License
 ;;
