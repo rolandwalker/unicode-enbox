@@ -121,8 +121,7 @@
 ;;; requires
 
 ;; for callf
-(eval-when-compile
-  (require 'cl))
+(require 'cl)
 
 (autoload 'string-utils-has-darkspace-p  "string-utils" "Test whether OBJ, when coerced to a string, has any non-whitespace characters.")
 (autoload 'string-utils-pad-list         "string-utils" "Pad each member of STR-LIST to match the longest width.")
@@ -395,6 +394,7 @@ on STR-VAL."
 ;; mangle-whitespace: t
 ;; require-final-newline: t
 ;; coding: utf-8
+;; byte-compile-warnings: (not cl-functions)
 ;; End:
 ;;
 ;; LocalWords:  UnicodeEnbox ARGS alist utils enbox deboxing debox
