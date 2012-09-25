@@ -233,14 +233,14 @@ overwrite content or append/prepend to it.
 
 Unless optional FORCE is set, do not attempt to debox unless
 `unicode-enbox' was previously run on STR-VAL.  This is detected
-by means of the text property `unicode-enbox-default-type'.
+by means of the text property `unicode-enbox-type'.
 
 Optional BOX-TYPE overrides the `unicode-enbox-default-type'
 customizable variable, which defaults to \"Standard\".
 
-The text property `unicode-enbox-default-type' will be set on the
-return value to match BOX-TYPE."
-  (if (or (and (get-text-property 0 'unicode-enbox-default-type str-val)
+The text property `unicode-enbox-type' will be set on the return
+value to match BOX-TYPE."
+  (if (or (and (get-text-property 0 'unicode-enbox-type str-val)
                (not force))
           (and unicode-only
                (not (unicode-enbox-unicode-display-p))))
@@ -334,7 +334,7 @@ return value to match BOX-TYPE."
                     str-list))
 
           ;; glue together and propertize the return value
-          (propertize (mapconcat 'identity str-list "\n") 'unicode-enbox-default-type box-type)))))
+          (propertize (mapconcat 'identity str-list "\n") 'unicode-enbox-type box-type)))))
 
 ;;;###autoload
 (defun unicode-enbox-debox (str-val &optional force box-type)
@@ -342,14 +342,14 @@ return value to match BOX-TYPE."
 
 Unless optional FORCE is set, do not attempt to debox unless
 `unicode-enbox' was previously run on STR-VAL.  This is detected
-by means of the text property `unicode-enbox-default-type'.
+by means of the text property `unicode-enbox-type'.
 
-Optional BOX-TYPE overrides the `unicode-enbox-default-type' text property
+Optional BOX-TYPE overrides the `unicode-enbox-type' text property
 on STR-VAL."
   (if (and (not force)
-           (not (get-text-property 0 'unicode-enbox-default-type str-val)))
+           (not (get-text-property 0 'unicode-enbox-type str-val)))
       str-val
-    (callf or box-type (get-text-property 0 'unicode-enbox-default-type str-val))
+    (callf or box-type (get-text-property 0 'unicode-enbox-type str-val))
     (destructuring-bind (top-left-corner
                          top-right-corner
                          bottom-left-corner
@@ -381,7 +381,7 @@ on STR-VAL."
                             (concat "["    vertical-line vertical-line-left-conx vertical-line-right-conx "]\\'") "" str))
                 str-list)
         (dolist (str str-list)
-          (remove-text-properties 0 (length str) '(unicode-enbox-default-type nil) str))
+          (remove-text-properties 0 (length str) '(unicode-enbox-type nil) str))
         (mapconcat 'identity str-list "\n")))))
 
 (provide 'unicode-enbox)
