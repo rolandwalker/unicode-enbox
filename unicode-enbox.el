@@ -240,12 +240,13 @@ customizable variable, which defaults to \"Standard\".
 
 The text property `unicode-enbox-type' will be set on the return
 value to match BOX-TYPE."
-  (if (or (and (get-text-property 0 'unicode-enbox-type str-val)
-               (not force))
-          (and unicode-only
-               (not (unicode-enbox-unicode-display-p))))
+  (if (and unicode-only
+           (not (unicode-enbox-unicode-display-p)))
       str-val
     ;; else
+    (when (or force
+              (get-text-property 0 'unicode-enbox-type str-val))
+      (callf unicode-enbox-debox str-val force))
     (callf or box-type unicode-enbox-default-type)
     (unless (unicode-enbox-unicode-display-p)
       (setq box-type "ASCII"))
