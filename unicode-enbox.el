@@ -342,14 +342,15 @@ value to match BOX-TYPE."
 
 Unless optional FORCE is set, do not attempt to debox unless
 `unicode-enbox' was previously run on STR-VAL.  This is detected
-by means of the text property `unicode-enbox-type'.
+by means of the text property `unicode-enbox-type', or falls
+back to `unicode-enbox-default-type'.
 
 Optional BOX-TYPE overrides the `unicode-enbox-type' text property
-on STR-VAL."
+or default type."
   (if (and (not force)
            (not (get-text-property 0 'unicode-enbox-type str-val)))
       str-val
-    (callf or box-type (get-text-property 0 'unicode-enbox-type str-val))
+    (callf or box-type (get-text-property 0 'unicode-enbox-type str-val) unicode-enbox-default-type)
     (destructuring-bind (top-left-corner
                          top-right-corner
                          bottom-left-corner
