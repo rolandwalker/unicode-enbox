@@ -215,6 +215,55 @@
 ;;; principal interface
 
 ;;;###autoload
+(defun unicode-enbox-debox (str-val &optional force box-type)
+  "Remove box drawing from the border of STR-VAL.
+
+Unless optional FORCE is set, do not attempt to debox unless
+`unicode-enbox' was previously run on STR-VAL.  This is detected
+by means of the text property `unicode-enbox-type', or falls
+back to `unicode-enbox-default-type'.
+
+Optional BOX-TYPE overrides the `unicode-enbox-type' text property
+or default type."
+  (if (and (not force)
+           (not (get-text-property 0 'unicode-enbox-type str-val)))
+      str-val
+    (callf or box-type (get-text-property 0 'unicode-enbox-type str-val) unicode-enbox-default-type)
+    (destructuring-bind (top-left-corner
+                         top-right-corner
+                         bottom-left-corner
+                         bottom-right-corner
+                         horizontal-line
+                         vertical-line
+                         vertical-line-left-conx
+                         vertical-line-right-conx)
+        (mapcar #'(lambda (cell)
+                    (ucs-utils-string (cdr cell) ?. 'cdp))
+                (cdr (assoc-string box-type unicode-enbox-box-drawing-characters)))
+      (let ((str-list (split-string str-val "\n")))
+        (when (and str-list
+                   (string-match-p (concat "\\`[" top-left-corner horizontal-line top-right-corner "]+\\'")
+                                   (car str-list)))
+          (pop str-list))
+        (callf nreverse str-list)
+        (when (and str-list
+                   (string-match-p (concat "\\`[" bottom-left-corner horizontal-line bottom-right-corner "]+\\'")
+                                   (car str-list)))
+          (pop str-list))
+        (callf nreverse str-list)
+        (callf2 mapcar #'(lambda (str)
+                           (replace-regexp-in-string
+                            (concat "\\`[" vertical-line vertical-line-left-conx vertical-line-right-conx "]" ) "" str))
+                str-list)
+        (callf2 mapcar #'(lambda (str)
+                           (replace-regexp-in-string
+                            (concat "["    vertical-line vertical-line-left-conx vertical-line-right-conx "]\\'") "" str))
+                str-list)
+        (dolist (str str-list)
+          (remove-text-properties 0 (length str) '(unicode-enbox-type nil) str))
+        (mapconcat 'identity str-list "\n")))))
+
+;;;###autoload
 (defun unicode-enbox (str-val &optional unicode-only side-mode top-mode force box-type)
   "Return multi-line STR-VAL enclosed in a box.
 
@@ -336,55 +385,6 @@ value to match BOX-TYPE."
 
           ;; glue together and propertize the return value
           (propertize (mapconcat 'identity str-list "\n") 'unicode-enbox-type box-type)))))
-
-;;;###autoload
-(defun unicode-enbox-debox (str-val &optional force box-type)
-  "Remove box drawing from the border of STR-VAL.
-
-Unless optional FORCE is set, do not attempt to debox unless
-`unicode-enbox' was previously run on STR-VAL.  This is detected
-by means of the text property `unicode-enbox-type', or falls
-back to `unicode-enbox-default-type'.
-
-Optional BOX-TYPE overrides the `unicode-enbox-type' text property
-or default type."
-  (if (and (not force)
-           (not (get-text-property 0 'unicode-enbox-type str-val)))
-      str-val
-    (callf or box-type (get-text-property 0 'unicode-enbox-type str-val) unicode-enbox-default-type)
-    (destructuring-bind (top-left-corner
-                         top-right-corner
-                         bottom-left-corner
-                         bottom-right-corner
-                         horizontal-line
-                         vertical-line
-                         vertical-line-left-conx
-                         vertical-line-right-conx)
-        (mapcar #'(lambda (cell)
-                    (ucs-utils-string (cdr cell) ?. 'cdp))
-                (cdr (assoc-string box-type unicode-enbox-box-drawing-characters)))
-      (let ((str-list (split-string str-val "\n")))
-        (when (and str-list
-                   (string-match-p (concat "\\`[" top-left-corner horizontal-line top-right-corner "]+\\'")
-                                   (car str-list)))
-          (pop str-list))
-        (callf nreverse str-list)
-        (when (and str-list
-                   (string-match-p (concat "\\`[" bottom-left-corner horizontal-line bottom-right-corner "]+\\'")
-                                   (car str-list)))
-          (pop str-list))
-        (callf nreverse str-list)
-        (callf2 mapcar #'(lambda (str)
-                           (replace-regexp-in-string
-                            (concat "\\`[" vertical-line vertical-line-left-conx vertical-line-right-conx "]" ) "" str))
-                str-list)
-        (callf2 mapcar #'(lambda (str)
-                           (replace-regexp-in-string
-                            (concat "["    vertical-line vertical-line-left-conx vertical-line-right-conx "]\\'") "" str))
-                str-list)
-        (dolist (str str-list)
-          (remove-text-properties 0 (length str) '(unicode-enbox-type nil) str))
-        (mapconcat 'identity str-list "\n")))))
 
 (provide 'unicode-enbox)
 
