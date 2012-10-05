@@ -8,7 +8,7 @@
 ;; Version: 0.1.3
 ;; Last-Updated: 14 Sep 2012
 ;; EmacsWiki: UnicodeEnbox
-;; Package-Requires: ((string-utils "0.0.1") (ucs-utils "0.6.0") (persistent-soft "0.8.0") (pcache "0.2.3"))
+;; Package-Requires: ((string-utils "0.0.1") (ucs-utils "0.6.0") (persistent-soft "0.8.6") (pcache "0.2.3"))
 ;; Keywords: extensions, interface
 ;;
 ;; Simplified BSD License
