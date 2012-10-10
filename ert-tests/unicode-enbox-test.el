@@ -7,12 +7,14 @@
   (setq package-load-list '((pcache t)
                             (persistent-soft t)
                             (ucs-utils t)
+                            (list-utils t)
                             (string-utils t)))
   (when (fboundp 'package-initialize)
     (package-initialize)))
 
 (require 'persistent-soft)
 (require 'ucs-utils)
+(require 'list-utils)
 (require 'string-utils)
 (require 'unicode-enbox)
 
