@@ -44,9 +44,12 @@ TEST_DEP_4_LATEST_URL=https://raw.github.com/rolandwalker/ucs-utils/master/ucs-u
 TEST_DEP_4a=ucs-utils-6.0-delta
 TEST_DEP_4a_STABLE_URL=https://raw.github.com/rolandwalker/ucs-utils/cf38ef555fc30d9aefaf3675ebd969948b71496a/ucs-utils-6.0-delta.el
 TEST_DEP_4a_LATEST_URL=https://raw.github.com/rolandwalker/ucs-utils/master/ucs-utils-6.0-delta.el
-TEST_DEP_5=string-utils
-TEST_DEP_5_STABLE_URL=https://raw.github.com/rolandwalker/string-utils/cefb98ecf8257f69d8288929fc0425f145484452/string-utils.el
-TEST_DEP_5_LATEST_URL=https://raw.github.com/rolandwalker/string-utils/master/string-utils.el
+TEST_DEP_5=list-utils
+TEST_DEP_5_STABLE_URL=https://raw.github.com/rolandwalker/list-utils/a34f1d5c0be3faadd76680509e958797a60c0a41/list-utils.el
+TEST_DEP_5_LATEST_URL=https://raw.github.com/rolandwalker/list-utils/master/list-utils.el
+TEST_DEP_6=string-utils
+TEST_DEP_6_STABLE_URL=https://raw.github.com/rolandwalker/string-utils/cefb98ecf8257f69d8288929fc0425f145484452/string-utils.el
+TEST_DEP_6_LATEST_URL=https://raw.github.com/rolandwalker/string-utils/master/string-utils.el
 
 .PHONY : build downloads downloads-latest autoloads test-autoloads test-travis \
  test test-prep test-batch test-interactive test-tests clean edit run-pristine \
@@ -107,6 +110,17 @@ test-dep-5 :
 	      (require '$(TEST_DEP_5)))"                  || \
 	(echo "Can't load test dependency $(TEST_DEP_5).el, run 'make downloads' to fetch it" ; exit 1)
 
+test-dep-6 :
+	@cd '$(TEST_DIR)'                                 && \
+	$(RESOLVED_EMACS) $(EMACS_BATCH)  -L . -L .. --eval  \
+	    "(progn                                          \
+	      (setq package-load-list '(($(TEST_DEP_5) t)    \
+					($(TEST_DEP_6) t)))  \
+	      (when (fboundp 'package-initialize)            \
+	       (package-initialize))                         \
+	      (require '$(TEST_DEP_6)))"                  || \
+	(echo "Can't load test dependency $(TEST_DEP_6).el, run 'make downloads' to fetch it" ; exit 1)
+
 downloads :
 	$(CURL) '$(TEST_DEP_1_STABLE_URL)'  > $(TEST_DIR)/$(TEST_DEP_1).el
 	$(CURL) '$(TEST_DEP_2_STABLE_URL)'  > $(TEST_DIR)/$(TEST_DEP_2).el
@@ -114,6 +128,7 @@ downloads :
 	$(CURL) '$(TEST_DEP_4_STABLE_URL)'  > $(TEST_DIR)/$(TEST_DEP_4).el
 	$(CURL) '$(TEST_DEP_4a_STABLE_URL)' > '$(TEST_DIR)/$(TEST_DEP_4a).el'
 	$(CURL) '$(TEST_DEP_5_STABLE_URL)'  > $(TEST_DIR)/$(TEST_DEP_5).el
+	$(CURL) '$(TEST_DEP_6_STABLE_URL)'  > $(TEST_DIR)/$(TEST_DEP_6).el
 
 downloads-latest :
 	$(CURL) '$(TEST_DEP_1_LATEST_URL)'  > $(TEST_DIR)/$(TEST_DEP_1).el
@@ -122,6 +137,7 @@ downloads-latest :
 	$(CURL) '$(TEST_DEP_4_LATEST_URL)'  > $(TEST_DIR)/$(TEST_DEP_4).el
 	$(CURL) '$(TEST_DEP_4a_LATEST_URL)' > '$(TEST_DIR)/$(TEST_DEP_4a).el'
 	$(CURL) '$(TEST_DEP_5_LATEST_URL)'  > $(TEST_DIR)/$(TEST_DEP_5).el
+	$(CURL) '$(TEST_DEP_6_LATEST_URL)'  > $(TEST_DIR)/$(TEST_DEP_6).el
 
 autoloads :
 	$(RESOLVED_EMACS) $(EMACS_BATCH) --eval              \
@@ -139,7 +155,7 @@ test-travis :
 test-tests :
 	@perl -ne 'if (m/^\s*\(\s*ert-deftest\s*(\S+)/) {die "$$1 test name duplicated in $$ARGV\n" if $$dupes{$$1}++}' '$(TEST_DIR)/'*-test.el
 
-test-prep : build test-dep-1 test-dep-2 test-dep-3 test-dep-4 test-dep-5 test-autoloads test-travis test-tests
+test-prep : build test-dep-1 test-dep-2 test-dep-3 test-dep-4 test-dep-5 test-dep-6 test-autoloads test-travis test-tests
 
 test-batch :
 	@cd '$(TEST_DIR)'                                 && \
