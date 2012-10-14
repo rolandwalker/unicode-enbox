@@ -12,9 +12,9 @@
   (when (fboundp 'package-initialize)
     (package-initialize)))
 
+(require 'list-utils)
 (require 'persistent-soft)
 (require 'ucs-utils)
-(require 'list-utils)
 (require 'string-utils)
 (require 'unicode-enbox)
 
