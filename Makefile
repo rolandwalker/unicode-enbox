@@ -26,6 +26,7 @@ CURL=curl --silent
 EDITOR=runemacs -no_wait
 WORK_DIR=$(shell pwd)
 PACKAGE_NAME=$(shell basename $(WORK_DIR))
+PACKAGE_VERSION=$(shell perl -ne 'print "$$1\n" if m{^;+ *Version: *(\S+)}' $(PACKAGE_NAME).el)
 AUTOLOADS_FILE=$(PACKAGE_NAME)-autoloads.el
 TRAVIS_FILE=.travis.yml
 TEST_DIR=ert-tests
@@ -52,17 +53,27 @@ TEST_DEP_6=string-utils
 TEST_DEP_6_STABLE_URL=https://raw.github.com/rolandwalker/string-utils/cefb98ecf8257f69d8288929fc0425f145484452/string-utils.el
 TEST_DEP_6_LATEST_URL=https://raw.github.com/rolandwalker/string-utils/master/string-utils.el
 
-.PHONY : build downloads downloads-latest autoloads test-autoloads test-travis \
- test test-prep test-batch test-interactive test-tests clean edit run-pristine \
- run-pristine-local upload-github upload-wiki upload-marmalade test-dep-1      \
- test-dep-2 test-dep-3 test-dep-4 test-dep-5 test-dep-6 test-dep-7 test-dep-8  \
- test-dep-9
+.PHONY : build dist not-dirty pkg-version downloads downloads-latest autoloads \
+ test-autoloads test-travis test test-prep test-batch test-interactive         \
+ test-tests clean edit run-pristine run-pristine-local upload-github           \
+ upload-wiki upload-marmalade test-dep-1 test-dep-2 test-dep-3 test-dep-4      \
+ test-dep-5 test-dep-5a test-dep-6 test-dep-7 test-dep-8 test-dep-9
 
 build :
 	$(RESOLVED_EMACS) $(EMACS_BATCH) --eval    \
 	    "(progn                                \
 	      (setq byte-compile-error-on-warn t)  \
 	      (batch-byte-compile))" *.el
+
+not-dirty :
+	@git diff --quiet '$(PACKAGE_NAME).el' 'plugins/$(PACKAGE_NAME)'*.el || \
+	 ( git --no-pager diff '$(PACKAGE_NAME).el';      \
+	   echo "Uncommitted edits - do a git stash";     \
+	   false )
+
+pkg-version :
+	@test -n '$(PACKAGE_VERSION)'    || \
+	 ( echo "No package version"; false )
 
 test-dep-1 :
 	@cd '$(TEST_DIR)'                                               && \
@@ -237,11 +248,7 @@ edit :
 upload-github :
 	@git push origin master
 
-upload-wiki :
-	@git diff --quiet '$(PACKAGE_NAME).el'         || \
-	 ( git --no-pager diff '$(PACKAGE_NAME).el';      \
-	   echo "Outstanding edits - do a git stash";     \
-	   false )
+upload-wiki : not-dirty
 	@$(RESOLVED_EMACS) $(EMACS_BATCH) --eval          \
 	 "(progn                                          \
 	   (setq package-load-list '((yaoddmuse t)))      \
