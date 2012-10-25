@@ -121,7 +121,7 @@
 ;;; Code:
 ;;
 
-;;; requires
+;;; requirements
 
 ;; for callf
 (require 'cl)
