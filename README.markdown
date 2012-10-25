@@ -14,8 +14,8 @@ Quickstart
 (insert "\n" (unicode-enbox "testing"))
 ```
 
-unicode-enbox
--------------
+Explanation
+-----------
 
 Unicode-enbox.el has no user-level interface; it is only useful
 for programming in Emacs Lisp.
