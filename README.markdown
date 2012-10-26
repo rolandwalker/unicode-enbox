@@ -1,4 +1,4 @@
-[![Build Status](https://secure.travis-ci.org/rolandwalker/unicode-enbox.png)](http://travis-ci.org/rolandwalker/unicode-enbox)
+[![Build Status](https://secure.travis-ci.org/rolandwalker/unicode-enbox.png?branch=master)](http://travis-ci.org/rolandwalker/unicode-enbox)
 
 Overview
 ========
