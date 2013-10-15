@@ -198,7 +198,7 @@
   "Surround a string with box-drawing characters."
   :version "0.1.3"
   :link '(emacs-commentary-link :tag "Commentary" "unicode-enbox")
-  :link '(url-link :tag "Github" "http://github.com/rolandwalker/unicode-enbox")
+  :link '(url-link :tag "GitHub" "http://github.com/rolandwalker/unicode-enbox")
   :link '(url-link :tag "EmacsWiki" "http://emacswiki.org/emacs/UnicodeEnbox")
   :prefix "unicode-enbox-"
   :group 'extensions)
