@@ -7,3 +7,4 @@
 /ert-tests/ucs-utils.el
 /ert-tests/test_output/
 *-autoloads.el
+*.elc
