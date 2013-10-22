@@ -50,7 +50,7 @@ TEST_DEP_5a=ucs-utils-6.0-delta
 TEST_DEP_5a_STABLE_URL=https://raw.github.com/rolandwalker/ucs-utils/cf38ef555fc30d9aefaf3675ebd969948b71496a/ucs-utils-6.0-delta.el
 TEST_DEP_5a_LATEST_URL=https://raw.github.com/rolandwalker/ucs-utils/master/ucs-utils-6.0-delta.el
 TEST_DEP_6=string-utils
-TEST_DEP_6_STABLE_URL=https://raw.github.com/rolandwalker/string-utils/cefb98ecf8257f69d8288929fc0425f145484452/string-utils.el
+TEST_DEP_6_STABLE_URL=https://raw.github.com/rolandwalker/string-utils/e18887a44dcd55f45741f94b09f89ba3d58ace8d/string-utils.el
 TEST_DEP_6_LATEST_URL=https://raw.github.com/rolandwalker/string-utils/master/string-utils.el
 
 .PHONY : build dist not-dirty pkg-version downloads downloads-latest autoloads \
