@@ -5,8 +5,8 @@
 ;; Author: Roland Walker <walker@pobox.com>
 ;; Homepage: http://github.com/rolandwalker/unicode-enbox
 ;; URL: http://raw.github.com/rolandwalker/unicode-enbox/master/unicode-enbox.el
-;; Version: 0.1.3
-;; Last-Updated: 14 Sep 2012
+;; Version: 0.1.4
+;; Last-Updated:  6 Nov 2013
 ;; EmacsWiki: UnicodeEnbox
 ;; Package-Requires: ((string-utils "0.3.2") (ucs-utils "0.7.6") (persistent-soft "0.8.8") (pcache "0.2.3"))
 ;; Keywords: extensions, interface
@@ -196,7 +196,7 @@
 ;;;###autoload
 (defgroup unicode-enbox nil
   "Surround a string with box-drawing characters."
-  :version "0.1.3"
+  :version "0.1.4"
   :link '(emacs-commentary-link :tag "Commentary" "unicode-enbox")
   :link '(url-link :tag "GitHub" "http://github.com/rolandwalker/unicode-enbox")
   :link '(url-link :tag "EmacsWiki" "http://emacswiki.org/emacs/UnicodeEnbox")
