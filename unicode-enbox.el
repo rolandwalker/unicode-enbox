@@ -4,7 +4,7 @@
 ;;
 ;; Author: Roland Walker <walker@pobox.com>
 ;; Homepage: http://github.com/rolandwalker/unicode-enbox
-;; URL: http://raw.github.com/rolandwalker/unicode-enbox/master/unicode-enbox.el
+;; URL: http://raw.githubusercontent.com/rolandwalker/unicode-enbox/master/unicode-enbox.el
 ;; Version: 0.1.4
 ;; Last-Updated:  6 Nov 2013
 ;; EmacsWiki: UnicodeEnbox
