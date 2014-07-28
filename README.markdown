@@ -1,12 +1,10 @@
 [![Build Status](https://secure.travis-ci.org/rolandwalker/unicode-enbox.png?branch=master)](http://travis-ci.org/rolandwalker/unicode-enbox)
 
-Overview
-========
+# Overview
 
 Surround a string with box-drawing characters in Emacs.
 
-Quickstart
-----------
+## Quickstart
 
 ```elisp
 (require 'unicode-enbox)
@@ -14,8 +12,7 @@ Quickstart
 (insert "\n" (unicode-enbox "testing"))
 ```
 
-Explanation
------------
+## Explanation
 
 Unicode-enbox.el has no user-level interface; it is only useful
 for programming in Emacs Lisp.
@@ -28,13 +25,11 @@ This library provides two functions:
 which can be used to add/remove box-drawing characters around
 a single- or multi-line string.
 
-See Also
---------
+## See Also
 
 M-x customize-group RET unicode-enbox RET
 
-Notes
------
+## Notes
 
 For good monospaced box-drawing characters, it is recommended to
 install the free DejaVu Sans Mono font and use unicode-fonts.el.
@@ -47,8 +42,7 @@ following bit to your ~/.emacs file:
                   '("DejaVu Sans Mono" . "iso10646-1"))
 ```
 
-Compatibility and Requirements
-------------------------------
+## Compatibility and Requirements
 
 	GNU Emacs version 24.4-devel     : yes, at the time of writing
 	GNU Emacs version 24.3           : yes
