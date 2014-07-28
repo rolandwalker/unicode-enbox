@@ -8,7 +8,7 @@ Surround a string with box-drawing characters in Emacs.
 Quickstart
 ----------
 
-```lisp
+```elisp
 (require 'unicode-enbox)
  
 (insert "\n" (unicode-enbox "testing"))
@@ -41,7 +41,7 @@ install the free DejaVu Sans Mono font and use unicode-fonts.el.
 If unicode-fonts.el is too heavy for your needs, try adding the
 following bit to your ~/.emacs file:
 
-```lisp
+```elisp
 (set-fontset-font "fontset-default"
                   (cons (decode-char 'ucs #x2500)  (decode-char 'ucs #x257F))
                   '("DejaVu Sans Mono" . "iso10646-1"))
