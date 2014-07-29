@@ -14,7 +14,7 @@ Surround a string with box-drawing characters in Emacs.
 
 ## Explanation
 
-Unicode-enbox.el has no user-level interface; it is only useful
+`unicode-enbox.el` has no user-level interface; it is only useful
 for programming in Emacs Lisp.
 
 This library provides two functions:
