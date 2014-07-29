@@ -39,7 +39,7 @@ following bit to your `~/.emacs` file:
 ```elisp
 (set-fontset-font "fontset-default"
                   (cons (decode-char 'ucs #x2500)  (decode-char 'ucs #x257F))
-                  '("DejaVu Sans Mono" . "iso10646-1"))
+                  (font-spec :name "DejaVu Sans Mono:" :registry "iso10646-1"))
 ```
 
 ## Compatibility and Requirements
