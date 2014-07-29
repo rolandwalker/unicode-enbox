@@ -32,9 +32,9 @@ a single- or multi-line string.
 ## Notes
 
 For good monospaced box-drawing characters, it is recommended to
-install the free DejaVu Sans Mono font and use unicode-fonts.el.
-If unicode-fonts.el is too heavy for your needs, try adding the
-following bit to your ~/.emacs file:
+install the free DejaVu Sans Mono font and use `unicode-fonts.el`.
+If `unicode-fonts.el` is too heavy for your needs, try adding the
+following bit to your `~/.emacs` file:
 
 ```elisp
 (set-fontset-font "fontset-default"
