@@ -4,6 +4,12 @@
 
 Surround a string with box-drawing characters in Emacs.
 
+ * [Quickstart](#quickstart)
+ * [Explanation](#explanation)
+ * [See Also](#see-also)
+ * [Notes](#notes)
+ * [Compatibility and Requirements](#compatibility-and-requirements)
+
 ## Quickstart
 
 ```elisp
@@ -27,7 +33,7 @@ a single- or multi-line string.
 
 ## See Also
 
-* <kbd>M-x</kbd> <kbd>customize-group</kbd> <kbd>RET</kbd> <kbd>unicode-enbox</kbd> <kbd>RET</kbd>
+ * <kbd>M-x</kbd> <kbd>customize-group</kbd> <kbd>RET</kbd> <kbd>unicode-enbox</kbd> <kbd>RET</kbd>
 
 ## Notes
 
